@@ -71,6 +71,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     themeManager->ApplyTheme(NekoGui::dataStore->theme);
     ui->search->setPlaceholderText(tr("Search profiles / 搜索节点"));
     ui->search->setMinimumWidth(220);
+    ui->checkBox_VPN->setMinimumWidth(138);
+    ui->checkBox_SystemProxy->setMinimumWidth(158);
     ui->tabWidget->setDocumentMode(true);
     ui->tabWidget->setTabPosition(QTabWidget::North);
     ui->tabWidget->tabBar()->setExpanding(false);
@@ -275,7 +277,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->tableWidget_conn->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->tableWidget_conn->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     ui->tableWidget_conn->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
-    ui->proxyListTable->verticalHeader()->setDefaultSectionSize(56);
+    ui->proxyListTable->verticalHeader()->setDefaultSectionSize(68);
 
     // search box
     ui->search->setVisible(false);
@@ -1160,12 +1162,13 @@ void MainWindow::refresh_proxy_list_impl_refresh_data(const int &id) {
         subtitleLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
         titleLabel->setWordWrap(false);
         subtitleLabel->setWordWrap(false);
-        titleLabel->setStyleSheet(QStringLiteral("QLabel { color: %1; font-size: 10pt; font-weight: 700; }")
+        titleLabel->setStyleSheet(QStringLiteral("QLabel { color: %1; font-size: 9.5pt; font-weight: 700; }")
                                       .arg(active ? "#0075de" : "rgba(0, 0, 0, 0.95)"));
-        subtitleLabel->setStyleSheet("QLabel { color: #615d59; font-size: 8.5pt; }");
+        subtitleLabel->setStyleSheet("QLabel { color: #615d59; font-size: 8.2pt; }");
         layout->addWidget(titleLabel);
         layout->addWidget(subtitleLabel);
         layout->addStretch();
+        wrap->setMinimumHeight(52);
         return wrap;
     };
 
@@ -1214,7 +1217,7 @@ void MainWindow::refresh_proxy_list_impl_refresh_data(const int &id) {
             2,
             make_name_cell(
                 profile->bean->DisplayName(),
-                QStringLiteral("%1 · %2").arg(profile->bean->DisplayCoreType(), profile->bean->DisplayAddress()),
+                profile->bean->DisplayCoreType(),
                 isRunning));
 
         // C3: Test Result

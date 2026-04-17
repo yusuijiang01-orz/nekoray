@@ -527,7 +527,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QTabWidget" name="down_tab">
+         <widget class="QTabWidget" name="down_tab">
            <property name="currentIndex">
             <number>0</number>
            </property>
@@ -538,7 +538,7 @@
            <attribute name="title">
              <string>日志</string>
             </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout">
+          <layout class="QVBoxLayout" name="verticalLayout">
             <property name="spacing">
              <number>0</number>
             </property>
@@ -562,177 +562,9 @@
               <property name="openLinks">
                <bool>false</bool>
               </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QFrame" name="insightPanel">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <layout class="QVBoxLayout" name="insightPanelLayout">
-            <property name="spacing">
-             <number>12</number>
-            </property>
-            <property name="leftMargin">
-             <number>12</number>
-            </property>
-            <property name="topMargin">
-             <number>12</number>
-            </property>
-            <property name="rightMargin">
-             <number>12</number>
-            </property>
-            <property name="bottomMargin">
-             <number>12</number>
-            </property>
-            <item>
-             <widget class="QFrame" name="insightCardCurrent">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <layout class="QVBoxLayout" name="insightCardCurrentLayout">
-               <property name="spacing">
-                <number>6</number>
-               </property>
-               <property name="leftMargin">
-                <number>12</number>
-               </property>
-               <property name="topMargin">
-                <number>12</number>
-               </property>
-               <property name="rightMargin">
-                <number>12</number>
-               </property>
-               <property name="bottomMargin">
-                <number>12</number>
-               </property>
-               <item>
-                <widget class="QLabel" name="insightCurrentEyebrow">
-                 <property name="text">
-                  <string>Current</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="insightCurrentTitle">
-                 <property name="text">
-                  <string>当前线路</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="insightCurrentText">
-                 <property name="text">
-                  <string>点击节点后，这里会显示更完整的选择信息。</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
              </widget>
             </item>
-            <item>
-             <widget class="QFrame" name="insightCardInbound">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <layout class="QVBoxLayout" name="insightCardInboundLayout">
-               <property name="spacing">
-                <number>6</number>
-               </property>
-               <property name="leftMargin">
-                <number>12</number>
-               </property>
-               <property name="topMargin">
-                <number>12</number>
-               </property>
-               <property name="rightMargin">
-                <number>12</number>
-               </property>
-               <property name="bottomMargin">
-                <number>12</number>
-               </property>
-               <item>
-                <widget class="QLabel" name="insightInboundEyebrow">
-                 <property name="text">
-                  <string>Inbound</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="insightInboundTitle">
-                 <property name="text">
-                  <string>Mixed + Tun</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="insightInboundText">
-                 <property name="text">
-                  <string>代理入口与系统代理状态会在这里同步呈现。</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item>
-             <widget class="QFrame" name="insightCardTraffic">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <layout class="QVBoxLayout" name="insightCardTrafficLayout">
-               <property name="spacing">
-                <number>6</number>
-               </property>
-               <property name="leftMargin">
-                <number>12</number>
-               </property>
-               <property name="topMargin">
-                <number>12</number>
-               </property>
-               <property name="rightMargin">
-                <number>12</number>
-               </property>
-               <property name="bottomMargin">
-                <number>12</number>
-               </property>
-               <item>
-                <widget class="QLabel" name="insightTrafficEyebrow">
-                 <property name="text">
-                  <string>Traffic</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="insightTrafficTitle">
-                 <property name="text">
-                  <string>运行状态</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="insightTrafficText">
-                 <property name="text">
-                  <string>这里保留给流量和连接模式的摘要信息。</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
+          </layout>
           </widget>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
@@ -789,9 +621,202 @@
                 <string>Destination</string>
                </property>
               </column>
-             </widget>
-            </item>
-           </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="insightPanel">
+          <property name="minimumSize">
+           <size>
+            <width>320</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>360</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <layout class="QVBoxLayout" name="insightPanelLayout">
+           <property name="spacing">
+            <number>10</number>
+           </property>
+           <property name="leftMargin">
+            <number>10</number>
+           </property>
+           <property name="topMargin">
+            <number>10</number>
+           </property>
+           <property name="rightMargin">
+            <number>10</number>
+           </property>
+           <property name="bottomMargin">
+            <number>10</number>
+           </property>
+           <item>
+            <widget class="QFrame" name="insightCardCurrent">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <layout class="QVBoxLayout" name="insightCardCurrentLayout">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <property name="leftMargin">
+               <number>12</number>
+              </property>
+              <property name="topMargin">
+               <number>12</number>
+              </property>
+              <property name="rightMargin">
+               <number>12</number>
+              </property>
+              <property name="bottomMargin">
+               <number>12</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="insightCurrentEyebrow">
+                <property name="text">
+                 <string>Current</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="insightCurrentTitle">
+                <property name="text">
+                 <string>当前线路</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="insightCurrentText">
+                <property name="text">
+                 <string>点击节点后，这里会显示更完整的选择信息。</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="insightCardInbound">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <layout class="QVBoxLayout" name="insightCardInboundLayout">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <property name="leftMargin">
+               <number>12</number>
+              </property>
+              <property name="topMargin">
+               <number>12</number>
+              </property>
+              <property name="rightMargin">
+               <number>12</number>
+              </property>
+              <property name="bottomMargin">
+               <number>12</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="insightInboundEyebrow">
+                <property name="text">
+                 <string>Inbound</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="insightInboundTitle">
+                <property name="text">
+                 <string>Mixed + Tun</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="insightInboundText">
+                <property name="text">
+                 <string>代理入口与系统代理状态会在这里同步呈现。</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="insightCardTraffic">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <layout class="QVBoxLayout" name="insightCardTrafficLayout">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <property name="leftMargin">
+               <number>12</number>
+              </property>
+              <property name="topMargin">
+               <number>12</number>
+              </property>
+              <property name="rightMargin">
+               <number>12</number>
+              </property>
+              <property name="bottomMargin">
+               <number>12</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="insightTrafficEyebrow">
+                <property name="text">
+                 <string>Traffic</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="insightTrafficTitle">
+                <property name="text">
+                 <string>运行状态</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="insightTrafficText">
+                <property name="text">
+                 <string>这里保留给流量和连接模式的摘要信息。</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_insightBottom">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
           </widget>
          </widget>
         </item>
