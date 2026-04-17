@@ -8,11 +8,10 @@ QWidget,
 QDialog {
     background: #f6f5f4;
     color: rgba(0, 0, 0, 0.95);
-    font-family: "Segoe UI", "Microsoft YaHei UI", "PingFang SC";
-    font-size: 9pt;
+    font-family: "PingFang SC", "Microsoft YaHei UI", "Segoe UI";
+    font-size: 10pt;
 }
 
-QFrame#heroPanel,
 QFrame#toolbarPanel,
 QFrame#workspaceCard,
 QFrame#statusCard,
@@ -26,34 +25,13 @@ QDialog,
 QMessageBox {
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 16px;
-}
-
-QFrame#heroPanel {
-    background: #fbfaf8;
+    border-radius: 20px;
 }
 
 QLabel {
     background: transparent;
     border: none;
     color: rgba(0, 0, 0, 0.95);
-}
-
-QLabel#windowEyebrow {
-    color: #0075de;
-    font-size: 9pt;
-    font-weight: 700;
-}
-
-QLabel#windowTitleLabel {
-    color: rgba(0, 0, 0, 0.95);
-    font-size: 26pt;
-    font-weight: 700;
-}
-
-QLabel#windowSubtitleLabel {
-    color: #615d59;
-    font-size: 12pt;
 }
 
 QLabel#workspaceEyebrow,
@@ -91,8 +69,8 @@ QDoubleSpinBox {
     background: #ffffff;
     color: rgba(0, 0, 0, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 12px;
-    padding: 8px 12px;
+    border-radius: 16px;
+    padding: 10px 14px;
     selection-background-color: #dcecff;
     selection-color: rgba(0, 0, 0, 0.95);
 }
@@ -112,10 +90,10 @@ QPushButton {
     background: #ffffff;
     color: rgba(0, 0, 0, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 14px;
-    padding: 8px 14px;
-    min-height: 18px;
-    font-size: 9pt;
+    border-radius: 18px;
+    padding: 12px 20px;
+    min-height: 24px;
+    font-size: 11pt;
     font-weight: 600;
 }
 
@@ -134,6 +112,20 @@ QPushButton:checked {
     border: 1px solid rgba(0, 117, 222, 0.18);
 }
 
+QToolButton#toolButton_program:checked,
+QToolButton#toolButton_preferences:checked,
+QToolButton#toolButton_server:checked,
+QToolButton#toolButton_ads:checked,
+QToolButton#toolButton_document:checked,
+QToolButton#toolButton_update:checked,
+QToolButton#filterButtonAll:checked,
+QToolButton#filterButtonFast:checked,
+QToolButton#filterButtonRecent:checked {
+    background: #0075de;
+    color: #ffffff;
+    border: 1px solid rgba(0, 117, 222, 0.18);
+}
+
 QToolButton::menu-indicator {
     subcontrol-origin: padding;
     subcontrol-position: right center;
@@ -145,7 +137,7 @@ QToolButton#toolButton_routing,
 QToolButton#filterButtonAll,
 QToolButton#filterButtonFast,
 QToolButton#filterButtonRecent {
-    padding: 8px 16px;
+    padding: 10px 18px;
     border-radius: 999px;
     background: #ffffff;
     color: #615d59;
@@ -164,7 +156,7 @@ QPushButton[default="true"] {
     background: #0075de;
     color: #ffffff;
     border: 1px solid rgba(0, 117, 222, 0.18);
-    padding: 8px 18px;
+    padding: 12px 22px;
     font-weight: 700;
 }
 
@@ -179,10 +171,10 @@ QCheckBox {
     border: 1px solid rgba(0, 0, 0, 0.10);
     border-radius: 999px;
     color: rgba(0, 0, 0, 0.95);
-    spacing: 8px;
-    font-size: 9pt;
+    spacing: 10px;
+    font-size: 11pt;
     font-weight: 600;
-    padding: 8px 14px;
+    padding: 12px 18px;
 }
 
 QCheckBox::indicator {
@@ -212,7 +204,7 @@ QCheckBox:checked::indicator {
 QTabWidget::pane {
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 16px;
+    border-radius: 20px;
     top: -1px;
 }
 
@@ -225,10 +217,10 @@ QTabBar::tab {
     background: transparent;
     color: #615d59;
     border: 1px solid transparent;
-    border-radius: 14px;
-    padding: 8px 16px;
+    border-radius: 18px;
+    padding: 12px 20px;
     margin: 4px;
-    font-size: 9pt;
+    font-size: 11pt;
     font-weight: 600;
 }
 
@@ -244,9 +236,9 @@ QTabBar::tab:hover:!selected {
 }
 
 QTabWidget#tabWidget QTabBar::tab {
-    min-width: 96px;
-    padding: 9px 18px;
-    margin: 6px 6px 10px 0;
+    min-width: 110px;
+    padding: 14px 24px;
+    margin: 6px 6px 12px 0;
 }
 
 QTabWidget#down_tab QTabBar::tab {
@@ -290,7 +282,7 @@ QFrame#insightCardInbound,
 QFrame#insightCardTraffic {
     background: #fbfaf8;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 14px;
+    border-radius: 18px;
 }
 
 QTableWidget::item,
@@ -365,9 +357,9 @@ QLabel#label_speed {
     background: #ffffff;
     color: rgba(0, 0, 0, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 14px;
-    padding: 10px 14px;
-    font-size: 9pt;
+    border-radius: 18px;
+    padding: 14px 18px;
+    font-size: 11pt;
     font-weight: 600;
 }
 
