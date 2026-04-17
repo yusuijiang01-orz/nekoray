@@ -152,6 +152,7 @@ private:
     std::shared_ptr<NekoGui::ProxyEntity> running;
     QString traffic_update_cache;
     QTime last_test_time;
+    GroupSortAction current_filter_action;
     //
     int proxy_last_order = -1;
     bool select_mode = false;

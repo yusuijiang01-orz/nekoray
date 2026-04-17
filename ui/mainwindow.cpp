@@ -47,6 +47,7 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QFileInfo>
+#include <QStyle>
 #include <QButtonGroup>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -94,16 +95,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->toolButton_ads->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     ui->toolButton_document->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     ui->toolButton_update->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    for (auto button: {ui->toolButton_program, ui->toolButton_preferences, ui->toolButton_server,
-                       ui->toolButton_ads, ui->toolButton_document, ui->toolButton_update}) {
-        button->setIcon(QIcon());
-    }
-    ui->toolButton_program->setText(QString::fromUtf8("▶ 程序"));
-    ui->toolButton_preferences->setText(QString::fromUtf8("≡ 首选项"));
-    ui->toolButton_server->setText(QString::fromUtf8("▣ 服务器"));
-    ui->toolButton_ads->setText(QString::fromUtf8("◎ 推广"));
-    ui->toolButton_document->setText(QString::fromUtf8("? 文档"));
-    ui->toolButton_update->setText(QString::fromUtf8("↻ 更新"));
+    ui->toolButton_program->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
+    ui->toolButton_preferences->setIcon(style()->standardIcon(QStyle::SP_FileDialogDetailedView));
+    ui->toolButton_server->setIcon(style()->standardIcon(QStyle::SP_DriveNetIcon));
+    ui->toolButton_ads->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
+    ui->toolButton_document->setIcon(style()->standardIcon(QStyle::SP_MessageBoxQuestion));
+    ui->toolButton_update->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
+    ui->toolButton_program->setText(QString::fromUtf8("程序"));
+    ui->toolButton_preferences->setText(QString::fromUtf8("首选项"));
+    ui->toolButton_server->setText(QString::fromUtf8("服务器"));
+    ui->toolButton_ads->setText(QString::fromUtf8("推广"));
+    ui->toolButton_document->setText(QString::fromUtf8("文档"));
+    ui->toolButton_update->setText(QString::fromUtf8("更新"));
     {
         auto topTools = new QButtonGroup(this);
         topTools->setExclusive(true);
@@ -122,6 +125,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
             filters->addButton(button);
         }
         ui->filterButtonAll->setChecked(true);
+        current_filter_action = {};
+        connect(ui->filterButtonAll, &QToolButton::clicked, this, [=] {
+            current_filter_action = {};
+            refresh_proxy_list_impl(-1, current_filter_action);
+        });
+        connect(ui->filterButtonFast, &QToolButton::clicked, this, [=] {
+            current_filter_action = {GroupSortMethod::ByLatency, false, false, true};
+            refresh_proxy_list_impl(-1, current_filter_action);
+        });
+        connect(ui->filterButtonRecent, &QToolButton::clicked, this, [=] {
+            current_filter_action = {GroupSortMethod::ByRecent, false, false, true};
+            refresh_proxy_list_impl(-1, current_filter_action);
+        });
     }
     auto applyShadow = [&](QWidget *widget, const QColor &color, int blur, int offsetY) {
         auto effect = new QGraphicsDropShadowEffect(widget);
@@ -594,8 +610,6 @@ void MainWindow::show_group(int gid) {
         NekoGui::dataStore->current_group = gid;
         NekoGui::dataStore->Save();
     }
-    ui->tabWidget->widget(groupId2TabIndex(gid))->layout()->addWidget(ui->proxyListTable);
-
     // 列宽是否可调
     if (group->manually_column_width) {
         for (int i = 0; i <= 4; i++) {
@@ -615,7 +629,7 @@ void MainWindow::show_group(int gid) {
     }
 
     // show proxies
-    GroupSortAction gsa;
+    auto gsa = current_filter_action;
     gsa.scroll_to_started = true;
     refresh_proxy_list_impl(-1, gsa);
 
@@ -1099,9 +1113,16 @@ void MainWindow::refresh_proxy_list_impl(const int &id, GroupSortAction groupSor
             case GroupSortMethod::ByAddress:
             case GroupSortMethod::ByName:
             case GroupSortMethod::ByLatency:
-            case GroupSortMethod::ByType: {
+            case GroupSortMethod::ByType:
+            case GroupSortMethod::ByRecent: {
                 std::sort(ui->proxyListTable->order.begin(), ui->proxyListTable->order.end(),
                           [=](int a, int b) {
+                              if (groupSortAction.method == GroupSortMethod::ByRecent) {
+                                  const auto started = NekoGui::dataStore->started_id;
+                                  if (a == started && b != started) return true;
+                                  if (b == started && a != started) return false;
+                                  return a > b;
+                              }
                               QString ms_a;
                               QString ms_b;
                               if (groupSortAction.method == GroupSortMethod::ByType) {
