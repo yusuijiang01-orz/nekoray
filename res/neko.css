@@ -129,14 +129,15 @@ QToolButton#filterButtonRecent:checked {
 QToolButton::menu-indicator {
     subcontrol-origin: padding;
     subcontrol-position: right center;
-    width: 10px;
+    width: 0px;
+    image: none;
 }
 
 QToolButton#filterButtonAll,
 QToolButton#filterButtonFast,
 QToolButton#filterButtonRecent {
     padding: 8px 16px;
-    border-radius: 999px;
+    border-radius: 14px;
     background: #ffffff;
     color: #615d59;
 }
@@ -165,7 +166,7 @@ QPushButton[default="true"]:hover {
 QCheckBox {
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 999px;
+    border-radius: 14px;
     color: rgba(0, 0, 0, 0.95);
     spacing: 0px;
     font-size: 10.5pt;
