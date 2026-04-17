@@ -78,6 +78,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->tabWidget->tabBar()->setExpanding(false);
     ui->tabWidget->tabBar()->setUsesScrollButtons(true);
     ui->down_tab->setDocumentMode(true);
+    ui->splitter->setChildrenCollapsible(false);
+    ui->tabWidget->setMinimumHeight(360);
+    ui->down_tab->setMinimumHeight(220);
     ui->proxyListTable->setShowGrid(false);
     ui->proxyListTable->setAlternatingRowColors(false);
     ui->proxyListTable->setFocusPolicy(Qt::StrongFocus);
@@ -129,21 +132,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     };
     auto refreshAccentShadows = [=]() {
         const auto buttonBlue = QColor(0, 117, 222, 70);
-        const auto buttonGray = QColor(0, 0, 0, 18);
+        const auto buttonGray = QColor(0, 0, 0, 12);
         for (auto button: {ui->toolButton_program, ui->toolButton_preferences, ui->toolButton_server,
                            ui->toolButton_ads, ui->toolButton_document, ui->toolButton_update,
                            ui->filterButtonAll, ui->filterButtonFast, ui->filterButtonRecent}) {
-            applyShadow(button, button->isChecked() ? buttonBlue : buttonGray, button->isChecked() ? 22 : 14, button->isChecked() ? 5 : 3);
+            applyShadow(button, button->isChecked() ? buttonBlue : buttonGray, button->isChecked() ? 18 : 10, button->isChecked() ? 4 : 2);
         }
         for (auto button: {ui->checkBox_VPN, ui->checkBox_SystemProxy}) {
-            applyShadow(button, button->isChecked() ? buttonBlue : buttonGray, button->isChecked() ? 22 : 14, button->isChecked() ? 5 : 3);
+            applyShadow(button, button->isChecked() ? buttonBlue : buttonGray, button->isChecked() ? 18 : 10, button->isChecked() ? 4 : 2);
         }
-        applyShadow(ui->toolButton_url_test, buttonBlue, 24, 5);
+        applyShadow(ui->toolButton_url_test, buttonBlue, 20, 4);
     };
     for (auto frame: {ui->toolbarPanel, ui->workspaceCard, ui->statusCard, ui->workspaceHeaderPanel,
                       ui->modePanel, ui->insightPanel, ui->insightCardCurrent, ui->insightCardInbound,
                       ui->insightCardTraffic}) {
-        applyShadow(frame, QColor(0, 0, 0, 18), 28, 6);
+        applyShadow(frame, QColor(0, 0, 0, 10), 18, 3);
     }
     //
     connect(ui->menu_start, &QAction::triggered, this, [=]() { neko_start(); });
@@ -196,6 +199,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // Setup log UI
     ui->splitter->restoreState(DecodeB64IfValid(NekoGui::dataStore->splitter_state));
+    {
+        auto sizes = ui->splitter->sizes();
+        if (sizes.size() == 2) {
+            const int total = sizes[0] + sizes[1];
+            const int minTop = 340;
+            const int minBottom = 220;
+            int top = sizes[0];
+            int bottom = sizes[1];
+            if (top < minTop || bottom < minBottom) {
+                top = qMax(minTop, total * 62 / 100);
+                bottom = qMax(minBottom, total - top);
+                ui->splitter->setSizes({top, bottom});
+            }
+        }
+    }
     qvLogDocument->setUndoRedoEnabled(false);
     ui->masterLogBrowser->setUndoRedoEnabled(false);
     ui->masterLogBrowser->setDocument(qvLogDocument);
@@ -277,7 +295,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->tableWidget_conn->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->tableWidget_conn->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     ui->tableWidget_conn->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
-    ui->proxyListTable->verticalHeader()->setDefaultSectionSize(68);
+    ui->proxyListTable->verticalHeader()->setDefaultSectionSize(58);
 
     // search box
     ui->search->setVisible(false);
@@ -592,6 +610,8 @@ void MainWindow::show_group(int gid) {
         ui->proxyListTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
         ui->proxyListTable->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
         ui->proxyListTable->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
+        ui->proxyListTable->horizontalHeader()->resizeSection(3, 96);
+        ui->proxyListTable->horizontalHeader()->resizeSection(4, 210);
     }
 
     // show proxies
@@ -1162,13 +1182,13 @@ void MainWindow::refresh_proxy_list_impl_refresh_data(const int &id) {
         subtitleLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
         titleLabel->setWordWrap(false);
         subtitleLabel->setWordWrap(false);
-        titleLabel->setStyleSheet(QStringLiteral("QLabel { color: %1; font-size: 9.5pt; font-weight: 700; }")
+        titleLabel->setStyleSheet(QStringLiteral("QLabel { color: %1; font-size: 9pt; font-weight: 700; }")
                                       .arg(active ? "#0075de" : "rgba(0, 0, 0, 0.95)"));
-        subtitleLabel->setStyleSheet("QLabel { color: #615d59; font-size: 8.2pt; }");
+        subtitleLabel->setStyleSheet("QLabel { color: #7a756f; font-size: 7.8pt; }");
         layout->addWidget(titleLabel);
         layout->addWidget(subtitleLabel);
         layout->addStretch();
-        wrap->setMinimumHeight(52);
+        wrap->setMinimumHeight(44);
         return wrap;
     };
 
@@ -1198,7 +1218,7 @@ void MainWindow::refresh_proxy_list_impl_refresh_data(const int &id) {
             0,
             make_centered_badge(
                 profile->bean->DisplayType(),
-                QStringLiteral("QLabel { background: %1; color: %2; border: 1px solid transparent; border-radius: 12px; padding: 4px 10px; font-size: 8.5pt; font-weight: 700; }")
+                QStringLiteral("QLabel { background: %1; color: %2; border: 1px solid transparent; border-radius: 11px; padding: 3px 9px; font-size: 8.1pt; font-weight: 700; }")
                     .arg(isRunning ? "#0075de" : "#f2f9ff", isRunning ? "#ffffff" : "#0075de")));
 
         // C1: Address+Port
@@ -1254,7 +1274,7 @@ void MainWindow::refresh_proxy_list_impl_refresh_data(const int &id) {
                 3,
                 make_centered_badge(
                     latencyText,
-                    QStringLiteral("QLabel { background: %1; color: %2; border: 1px solid transparent; border-radius: 12px; padding: 4px 10px; font-size: 8.5pt; font-weight: 700; }")
+                    QStringLiteral("QLabel { background: %1; color: %2; border: 1px solid transparent; border-radius: 11px; padding: 3px 9px; font-size: 8.1pt; font-weight: 700; }")
                         .arg(badgeBackground, badgeColor)));
         }
 
@@ -1817,7 +1837,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
     } else if (event->type() == QEvent::MouseButtonDblClick) {
         if (obj == ui->splitter) {
             auto size = ui->splitter->size();
-            ui->splitter->setSizes({size.height() / 2, size.height() / 2});
+            ui->splitter->setSizes({size.height() * 62 / 100, size.height() * 38 / 100});
         }
     }
     return QMainWindow::eventFilter(obj, event);
