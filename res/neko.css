@@ -8,13 +8,20 @@ QWidget,
 QDialog {
     background: #f6f5f4;
     color: rgba(0, 0, 0, 0.95);
+    font-family: "Segoe UI", "Microsoft YaHei UI", "PingFang SC";
     font-size: 9pt;
 }
 
 QFrame#heroPanel,
+QFrame#toolbarPanel,
 QFrame#workspaceCard,
 QFrame#statusCard,
 QFrame#modePanel,
+QFrame#workspaceHeaderPanel,
+QFrame#insightPanel,
+QFrame#insightCardCurrent,
+QFrame#insightCardInbound,
+QFrame#insightCardTraffic,
 QDialog,
 QMessageBox {
     background: #ffffff;
@@ -40,13 +47,38 @@ QLabel#windowEyebrow {
 
 QLabel#windowTitleLabel {
     color: rgba(0, 0, 0, 0.95);
-    font-size: 18pt;
+    font-size: 26pt;
     font-weight: 700;
 }
 
 QLabel#windowSubtitleLabel {
     color: #615d59;
-    font-size: 10pt;
+    font-size: 12pt;
+}
+
+QLabel#workspaceEyebrow,
+QLabel#insightCurrentEyebrow,
+QLabel#insightInboundEyebrow,
+QLabel#insightTrafficEyebrow {
+    color: #0075de;
+    font-size: 9pt;
+    font-weight: 700;
+}
+
+QLabel#workspaceTitle,
+QLabel#insightCurrentTitle,
+QLabel#insightInboundTitle,
+QLabel#insightTrafficTitle {
+    color: rgba(0, 0, 0, 0.95);
+    font-size: 16pt;
+    font-weight: 700;
+}
+
+QLabel#insightCurrentText,
+QLabel#insightInboundText,
+QLabel#insightTrafficText {
+    color: #615d59;
+    font-size: 9.5pt;
 }
 
 QLineEdit,
@@ -109,15 +141,21 @@ QToolButton::menu-indicator {
 }
 
 QToolButton#toolButton_import,
-QToolButton#toolButton_routing {
+QToolButton#toolButton_routing,
+QToolButton#filterButtonAll,
+QToolButton#filterButtonFast,
+QToolButton#filterButtonRecent {
     padding: 8px 16px;
-    border-radius: 14px;
+    border-radius: 999px;
     background: #ffffff;
     color: #615d59;
 }
 
 QToolButton#toolButton_import:hover,
-QToolButton#toolButton_routing:hover {
+QToolButton#toolButton_routing:hover,
+QToolButton#filterButtonAll:hover,
+QToolButton#filterButtonFast:hover,
+QToolButton#filterButtonRecent:hover {
     color: rgba(0, 0, 0, 0.95);
 }
 
@@ -137,12 +175,14 @@ QPushButton[default="true"]:hover {
 }
 
 QCheckBox {
-    background: transparent;
-    border: none;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    border-radius: 999px;
     color: rgba(0, 0, 0, 0.95);
     spacing: 8px;
     font-size: 9pt;
     font-weight: 600;
+    padding: 8px 14px;
 }
 
 QCheckBox::indicator {
@@ -156,6 +196,17 @@ QCheckBox::indicator {
 QCheckBox::indicator:checked {
     background: #0075de;
     border: 1px solid #0075de;
+}
+
+QCheckBox:checked {
+    background: #0075de;
+    color: #ffffff;
+    border: 1px solid rgba(0, 117, 222, 0.18);
+}
+
+QCheckBox:checked::indicator {
+    background: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 QTabWidget::pane {
@@ -231,6 +282,15 @@ QTextEdit {
     outline: 0;
     selection-background-color: #dcecff;
     selection-color: rgba(0, 0, 0, 0.95);
+}
+
+QFrame#workspaceHeaderPanel,
+QFrame#insightCardCurrent,
+QFrame#insightCardInbound,
+QFrame#insightCardTraffic {
+    background: #fbfaf8;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
 }
 
 QTableWidget::item,
