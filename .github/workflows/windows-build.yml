@@ -1,0 +1,65 @@
+name: Build Windows Nekobox
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+jobs:
+  build-windows:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@v5
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.5.0'
+          target: 'desktop'
+          arch: 'win64_msvc2022_64'
+          cache: true
+
+      - name: Configure CMake
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Deploy Qt Runtime
+        shell: powershell
+        run: |
+          cd build
+          windeployqt nekobox.exe
+
+      - name: Package
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force output | Out-Null
+          Copy-Item build\nekobox.exe output\
+          if (Test-Path build\nekobox_core.exe) { Copy-Item build\nekobox_core.exe output\ }
+          Get-ChildItem build -Filter "*.dll" | Copy-Item -Destination output -Force
+          $dirs = @("platforms","styles","iconengines","imageformats","networkinformation","generic","tls")
+          foreach ($d in $dirs) {
+            if (Test-Path "build\\$d") {
+              Copy-Item "build\\$d" "output\\$d" -Recurse -Force
+            }
+          }
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nekobox-windows-build
+          path: output/
