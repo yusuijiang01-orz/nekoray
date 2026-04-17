@@ -57,11 +57,11 @@
        <property name="bottomMargin">
         <number>18</number>
        </property>
-       <item>
-        <layout class="QHBoxLayout" name="heroHeaderLayout">
-         <property name="spacing">
-          <number>14</number>
-         </property>
+        <item>
+         <layout class="QHBoxLayout" name="heroHeaderLayout">
+          <property name="spacing">
+           <number>14</number>
+          </property>
          <item>
           <layout class="QVBoxLayout" name="heroTitleLayout">
            <property name="spacing">
@@ -96,81 +96,100 @@
            </item>
           </layout>
          </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="heroActionsLayout">
+          <property name="spacing">
+           <number>10</number>
+          </property>
           <item>
-           <layout class="QHBoxLayout" name="heroActionsLayout">
-            <property name="spacing">
-              <number>10</number>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
-            <item>
-             <widget class="QToolButton" name="toolButton_import">
-              <property name="text">
-               <string>导入配置</string>
-              </property>
-              <property name="toolButtonStyle">
-               <enum>Qt::ToolButtonTextOnly</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="toolButton_routing">
-              <property name="text">
-               <string>路由设置</string>
-              </property>
-              <property name="toolButtonStyle">
-               <enum>Qt::ToolButtonTextOnly</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="search">
-              <property name="minimumSize">
-               <size>
-                <width>180</width>
-                <height>0</height>
-               </size>
-              </property>
-             <property name="clearButtonEnabled">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="toolButton_url_test">
-             <property name="text">
-              <string>Quick Test</string>
-             </property>
-             <property name="popupMode">
-              <enum>QToolButton::InstantPopup</enum>
-             </property>
-             <property name="toolButtonStyle">
-              <enum>Qt::ToolButtonTextBesideIcon</enum>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <property name="spacing">
-          <number>10</number>
-         </property>
-            <item>
-             <widget class="QToolButton" name="toolButton_program">
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_import">
+            <property name="text">
+             <string>导入配置</string>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextOnly</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_routing">
+            <property name="text">
+             <string>路由设置</string>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextOnly</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="search">
+            <property name="minimumSize">
+             <size>
+              <width>180</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_url_test">
+            <property name="text">
+             <string>URL 测试</string>
+            </property>
+            <property name="popupMode">
+             <enum>QToolButton::InstantPopup</enum>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonTextBesideIcon</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="toolbarPanel">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <property name="leftMargin">
+         <number>18</number>
+        </property>
+        <property name="topMargin">
+         <number>14</number>
+        </property>
+        <property name="rightMargin">
+         <number>18</number>
+        </property>
+        <property name="bottomMargin">
+         <number>14</number>
+        </property>
+          <item>
+           <widget class="QToolButton" name="toolButton_program">
               <property name="text">
                <string>程序</string>
               </property>
@@ -362,15 +381,13 @@
               </widget>
             </item>
            </layout>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QFrame" name="workspaceCard">
+           </widget>
+          </item>
+         </layout>
+       </widget>
+      </item>
+     <item>
+      <widget class="QFrame" name="workspaceCard">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -408,31 +425,138 @@
           <property name="movable">
            <bool>true</bool>
           </property>
-       <widget class="QWidget" name="widget1">
-        <attribute name="title">
-         <string/>
-        </attribute>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <item row="0" column="0">
-          <widget class="MyTableWidget" name="proxyListTable">
-           <property name="contextMenuPolicy">
-            <enum>Qt::CustomContextMenu</enum>
-           </property>
+        <widget class="QWidget" name="widget1">
+         <attribute name="title">
+          <string/>
+         </attribute>
+         <layout class="QVBoxLayout" name="workspaceTabLayout">
+          <property name="spacing">
+           <number>12</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QFrame" name="workspaceHeaderPanel">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <layout class="QHBoxLayout" name="workspaceHeaderLayout">
+             <property name="spacing">
+              <number>12</number>
+             </property>
+             <property name="leftMargin">
+              <number>16</number>
+             </property>
+             <property name="topMargin">
+              <number>16</number>
+             </property>
+             <property name="rightMargin">
+              <number>16</number>
+             </property>
+             <property name="bottomMargin">
+              <number>12</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="workspaceHeaderTextLayout">
+               <property name="spacing">
+                <number>4</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="workspaceEyebrow">
+                 <property name="text">
+                  <string>Profiles</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="workspaceTitle">
+                 <property name="text">
+                  <string>当前节点列表</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_workspaceHeader">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="workspaceFilterLayout">
+               <property name="spacing">
+                <number>8</number>
+               </property>
+               <item>
+                <widget class="QToolButton" name="filterButtonAll">
+                 <property name="text">
+                  <string>全部</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextOnly</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QToolButton" name="filterButtonFast">
+                 <property name="text">
+                  <string>低延迟</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextOnly</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QToolButton" name="filterButtonRecent">
+                 <property name="text">
+                  <string>最近使用</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextOnly</enum>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="MyTableWidget" name="proxyListTable">
+            <property name="contextMenuPolicy">
+             <enum>Qt::CustomContextMenu</enum>
+            </property>
            <property name="editTriggers">
             <set>QAbstractItemView::NoEditTriggers</set>
            </property>
@@ -480,23 +604,38 @@
              <string>Test Result</string>
             </property>
            </column>
-           <column>
-            <property name="text">
-             <string>Traffic</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+            <column>
+             <property name="text">
+              <string>Traffic</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
          </widget>
-         <widget class="QWidget" name="aaaaaaaaaaaaaaaaaa">
-       <layout class="QVBoxLayout" name="aaaaaaaaaaaa" stretch="0">
-        <item>
-         <widget class="QTabWidget" name="down_tab">
-          <property name="currentIndex">
-           <number>0</number>
-          </property>
+          <widget class="QWidget" name="aaaaaaaaaaaaaaaaaa">
+        <layout class="QHBoxLayout" name="logsWorkspaceLayout" stretch="4,1">
+         <property name="spacing">
+          <number>12</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QTabWidget" name="down_tab">
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
           <property name="documentMode">
            <bool>true</bool>
           </property>
@@ -528,9 +667,177 @@
               <property name="openLinks">
                <bool>false</bool>
               </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="insightPanel">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <layout class="QVBoxLayout" name="insightPanelLayout">
+            <property name="spacing">
+             <number>12</number>
+            </property>
+            <property name="leftMargin">
+             <number>12</number>
+            </property>
+            <property name="topMargin">
+             <number>12</number>
+            </property>
+            <property name="rightMargin">
+             <number>12</number>
+            </property>
+            <property name="bottomMargin">
+             <number>12</number>
+            </property>
+            <item>
+             <widget class="QFrame" name="insightCardCurrent">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <layout class="QVBoxLayout" name="insightCardCurrentLayout">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <property name="leftMargin">
+                <number>12</number>
+               </property>
+               <property name="topMargin">
+                <number>12</number>
+               </property>
+               <property name="rightMargin">
+                <number>12</number>
+               </property>
+               <property name="bottomMargin">
+                <number>12</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="insightCurrentEyebrow">
+                 <property name="text">
+                  <string>Current</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="insightCurrentTitle">
+                 <property name="text">
+                  <string>当前线路</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="insightCurrentText">
+                 <property name="text">
+                  <string>点击节点后，这里会显示更完整的选择信息。</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="insightCardInbound">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <layout class="QVBoxLayout" name="insightCardInboundLayout">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <property name="leftMargin">
+                <number>12</number>
+               </property>
+               <property name="topMargin">
+                <number>12</number>
+               </property>
+               <property name="rightMargin">
+                <number>12</number>
+               </property>
+               <property name="bottomMargin">
+                <number>12</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="insightInboundEyebrow">
+                 <property name="text">
+                  <string>Inbound</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="insightInboundTitle">
+                 <property name="text">
+                  <string>Mixed + Tun</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="insightInboundText">
+                 <property name="text">
+                  <string>代理入口与系统代理状态会在这里同步呈现。</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="insightCardTraffic">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <layout class="QVBoxLayout" name="insightCardTrafficLayout">
+               <property name="spacing">
+                <number>6</number>
+               </property>
+               <property name="leftMargin">
+                <number>12</number>
+               </property>
+               <property name="topMargin">
+                <number>12</number>
+               </property>
+               <property name="rightMargin">
+                <number>12</number>
+               </property>
+               <property name="bottomMargin">
+                <number>12</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="insightTrafficEyebrow">
+                 <property name="text">
+                  <string>Traffic</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="insightTrafficTitle">
+                 <property name="text">
+                  <string>运行状态</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="insightTrafficText">
+                 <property name="text">
+                  <string>这里保留给流量和连接模式的摘要信息。</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>
+          </widget>
+         </item>
+        </layout>
           </widget>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">

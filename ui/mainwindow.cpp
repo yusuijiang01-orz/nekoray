@@ -47,6 +47,9 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QFileInfo>
+#include <QButtonGroup>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 void UI_InitMainWindow() {
     mainwindow = new MainWindow;
@@ -86,6 +89,25 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->toolButton_update->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     ui->toolButton_import->setToolButtonStyle(Qt::ToolButtonTextOnly);
     ui->toolButton_routing->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    {
+        auto topTools = new QButtonGroup(this);
+        topTools->setExclusive(true);
+        for (auto button: {ui->toolButton_program, ui->toolButton_preferences, ui->toolButton_server,
+                           ui->toolButton_ads, ui->toolButton_document, ui->toolButton_update}) {
+            button->setCheckable(true);
+            topTools->addButton(button);
+        }
+        ui->toolButton_program->setChecked(true);
+    }
+    {
+        auto filters = new QButtonGroup(this);
+        filters->setExclusive(true);
+        for (auto button: {ui->filterButtonAll, ui->filterButtonFast, ui->filterButtonRecent}) {
+            button->setCheckable(true);
+            filters->addButton(button);
+        }
+        ui->filterButtonAll->setChecked(true);
+    }
     //
     connect(ui->menu_start, &QAction::triggered, this, [=]() { neko_start(); });
     connect(ui->menu_stop, &QAction::triggered, this, [=]() { neko_stop(); });
@@ -212,7 +234,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->tableWidget_conn->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     ui->tableWidget_conn->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     ui->tableWidget_conn->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
-    ui->proxyListTable->verticalHeader()->setDefaultSectionSize(24);
+    ui->proxyListTable->verticalHeader()->setDefaultSectionSize(56);
 
     // search box
     ui->search->setVisible(false);
@@ -873,6 +895,26 @@ void MainWindow::refresh_status(const QString &traffic_update) {
         ui->label_running->setToolTip({});
     }
 
+    {
+        auto selected = get_now_selected_list();
+        QString currentTitle = tr("当前线路");
+        QString currentText = tr("点击节点后，这里会显示更完整的选择信息。");
+        if (!selected.isEmpty()) {
+            auto ent = selected.first();
+            currentTitle = ent->bean->DisplayName();
+            currentText = ent->bean->DisplayTypeAndName();
+        } else if (running != nullptr) {
+            currentTitle = running->bean->DisplayName();
+            currentText = running->bean->DisplayTypeAndName();
+        }
+        ui->insightCurrentTitle->setText(currentTitle);
+        ui->insightCurrentText->setText(currentText);
+        ui->insightInboundTitle->setText(NekoGui::dataStore->spmode_vpn ? "Mixed + Tun" : "Mixed");
+        ui->insightInboundText->setText(inbound_txt);
+        ui->insightTrafficTitle->setText(traffic_update_cache.isEmpty() ? tr("运行状态") : tr("流量摘要"));
+        ui->insightTrafficText->setText(traffic_update_cache.isEmpty() ? ui->label_running->text() : traffic_update_cache);
+    }
+
     auto make_title = [=](bool isTray) {
         QStringList tt;
         if (!isTray && NekoGui::IsAdmin()) tt << "[Admin]";
@@ -1049,6 +1091,43 @@ void MainWindow::refresh_proxy_list_impl(const int &id, GroupSortAction groupSor
 }
 
 void MainWindow::refresh_proxy_list_impl_refresh_data(const int &id) {
+    auto make_centered_badge = [&](const QString &text, const QString &style) {
+        auto wrap = new QWidget();
+        wrap->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+        auto layout = new QHBoxLayout(wrap);
+        layout->setContentsMargins(8, 6, 8, 6);
+        layout->setSpacing(0);
+        auto label = new QLabel(text, wrap);
+        label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+        label->setAlignment(Qt::AlignCenter);
+        label->setStyleSheet(style);
+        layout->addStretch();
+        layout->addWidget(label);
+        layout->addStretch();
+        return wrap;
+    };
+
+    auto make_name_cell = [&](const QString &title, const QString &subtitle, bool active) {
+        auto wrap = new QWidget();
+        wrap->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+        auto layout = new QVBoxLayout(wrap);
+        layout->setContentsMargins(8, 6, 8, 6);
+        layout->setSpacing(2);
+        auto titleLabel = new QLabel(title, wrap);
+        auto subtitleLabel = new QLabel(subtitle, wrap);
+        titleLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+        subtitleLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+        titleLabel->setWordWrap(false);
+        subtitleLabel->setWordWrap(false);
+        titleLabel->setStyleSheet(QStringLiteral("QLabel { color: %1; font-size: 10pt; font-weight: 700; }")
+                                      .arg(active ? "#0075de" : "rgba(0, 0, 0, 0.95)"));
+        subtitleLabel->setStyleSheet("QLabel { color: #615d59; font-size: 8.5pt; }");
+        layout->addWidget(titleLabel);
+        layout->addWidget(subtitleLabel);
+        layout->addStretch();
+        return wrap;
+    };
+
     // 绘制或更新item(s)
     for (int row = 0; row < ui->proxyListTable->rowCount(); row++) {
         auto profileId = ui->proxyListTable->row2Id[row];
@@ -1070,6 +1149,13 @@ void MainWindow::refresh_proxy_list_impl_refresh_data(const int &id) {
         f->setText(profile->bean->DisplayType());
         if (isRunning) f->setForeground(palette().link());
         ui->proxyListTable->setItem(row, 0, f);
+        ui->proxyListTable->setCellWidget(
+            row,
+            0,
+            make_centered_badge(
+                profile->bean->DisplayType(),
+                QStringLiteral("QLabel { background: %1; color: %2; border: 1px solid transparent; border-radius: 12px; padding: 4px 10px; font-size: 8.5pt; font-weight: 700; }")
+                    .arg(isRunning ? "#0075de" : "#f2f9ff", isRunning ? "#ffffff" : "#0075de")));
 
         // C1: Address+Port
         f = f0->clone();
@@ -1082,17 +1168,51 @@ void MainWindow::refresh_proxy_list_impl_refresh_data(const int &id) {
         f->setText(profile->bean->name);
         if (isRunning) f->setForeground(palette().link());
         ui->proxyListTable->setItem(row, 2, f);
+        ui->proxyListTable->setCellWidget(
+            row,
+            2,
+            make_name_cell(
+                profile->bean->DisplayName(),
+                QStringLiteral("%1 · %2").arg(profile->bean->DisplayCoreType(), profile->bean->DisplayAddress()),
+                isRunning));
 
         // C3: Test Result
         f = f0->clone();
+        QString latencyText;
         if (profile->full_test_report.isEmpty()) {
             auto color = profile->DisplayLatencyColor();
             if (color.isValid()) f->setForeground(color);
-            f->setText(profile->DisplayLatency());
+            latencyText = profile->DisplayLatency();
+            f->setText(latencyText);
         } else {
-            f->setText(profile->full_test_report);
+            latencyText = profile->full_test_report;
+            f->setText(latencyText);
         }
         ui->proxyListTable->setItem(row, 3, f);
+        {
+            QString badgeBackground = "#f6f5f4";
+            QString badgeColor = "#615d59";
+            if (profile->full_test_report.isEmpty()) {
+                auto latencyColor = profile->DisplayLatencyColor();
+                if (latencyColor.isValid()) {
+                    auto name = latencyColor.name().toLower();
+                    if (name == "#1aae39") {
+                        badgeBackground = "#e8f7ec";
+                        badgeColor = "#1aae39";
+                    } else {
+                        badgeBackground = "#fff0e6";
+                        badgeColor = "#dd5b00";
+                    }
+                }
+            }
+            ui->proxyListTable->setCellWidget(
+                row,
+                3,
+                make_centered_badge(
+                    latencyText,
+                    QStringLiteral("QLabel { background: %1; color: %2; border: 1px solid transparent; border-radius: 12px; padding: 4px 10px; font-size: 8.5pt; font-weight: 700; }")
+                        .arg(badgeBackground, badgeColor)));
+        }
 
         // C4: Traffic
         f = f0->clone();
