@@ -132,8 +132,6 @@ QToolButton::menu-indicator {
     width: 10px;
 }
 
-QToolButton#toolButton_import,
-QToolButton#toolButton_routing,
 QToolButton#filterButtonAll,
 QToolButton#filterButtonFast,
 QToolButton#filterButtonRecent {
@@ -143,8 +141,6 @@ QToolButton#filterButtonRecent {
     color: #615d59;
 }
 
-QToolButton#toolButton_import:hover,
-QToolButton#toolButton_routing:hover,
 QToolButton#filterButtonAll:hover,
 QToolButton#filterButtonFast:hover,
 QToolButton#filterButtonRecent:hover {
@@ -171,34 +167,23 @@ QCheckBox {
     border: 1px solid rgba(0, 0, 0, 0.10);
     border-radius: 999px;
     color: rgba(0, 0, 0, 0.95);
-    spacing: 10px;
+    spacing: 0px;
     font-size: 11pt;
     font-weight: 600;
-    padding: 12px 18px;
+    padding: 12px 20px;
 }
 
 QCheckBox::indicator {
-    width: 16px;
-    height: 16px;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.18);
-    background: #ffffff;
-}
-
-QCheckBox::indicator:checked {
-    background: #0075de;
-    border: 1px solid #0075de;
+    width: 0px;
+    height: 0px;
+    border: none;
+    background: transparent;
 }
 
 QCheckBox:checked {
     background: #0075de;
     color: #ffffff;
     border: 1px solid rgba(0, 117, 222, 0.18);
-}
-
-QCheckBox:checked::indicator {
-    background: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 QTabWidget::pane {
@@ -285,6 +270,11 @@ QFrame#insightCardTraffic {
     border-radius: 18px;
 }
 
+QFrame#insightPanel {
+    background: transparent;
+    border: none;
+}
+
 QTableWidget::item,
 MyTableWidget::item {
     padding: 9px 12px;
@@ -361,6 +351,10 @@ QLabel#label_speed {
     padding: 14px 18px;
     font-size: 11pt;
     font-weight: 600;
+}
+
+QTextBrowser#masterLogBrowser {
+    min-height: 260px;
 }
 
 QSplitter::handle:vertical {
