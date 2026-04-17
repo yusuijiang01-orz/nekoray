@@ -50,6 +50,7 @@
 #include <QButtonGroup>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QGraphicsDropShadowEffect>
 
 void UI_InitMainWindow() {
     mainwindow = new MainWindow;
@@ -66,9 +67,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // Setup misc UI
     ui->setupUi(this);
+    setMinimumSize(1360, 860);
     themeManager->ApplyTheme(NekoGui::dataStore->theme);
     ui->search->setPlaceholderText(tr("Search profiles / 搜索节点"));
-    ui->search->setMinimumWidth(180);
+    ui->search->setMinimumWidth(220);
     ui->tabWidget->setDocumentMode(true);
     ui->tabWidget->setTabPosition(QTabWidget::North);
     ui->tabWidget->tabBar()->setExpanding(false);
@@ -87,8 +89,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->toolButton_ads->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     ui->toolButton_document->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     ui->toolButton_update->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    ui->toolButton_import->setToolButtonStyle(Qt::ToolButtonTextOnly);
-    ui->toolButton_routing->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    for (auto button: {ui->toolButton_program, ui->toolButton_preferences, ui->toolButton_server,
+                       ui->toolButton_ads, ui->toolButton_document, ui->toolButton_update}) {
+        button->setIcon(QIcon());
+    }
+    ui->toolButton_program->setText(QString::fromUtf8("▶ 程序"));
+    ui->toolButton_preferences->setText(QString::fromUtf8("≡ 首选项"));
+    ui->toolButton_server->setText(QString::fromUtf8("▣ 服务器"));
+    ui->toolButton_ads->setText(QString::fromUtf8("◎ 推广"));
+    ui->toolButton_document->setText(QString::fromUtf8("? 文档"));
+    ui->toolButton_update->setText(QString::fromUtf8("↻ 更新"));
     {
         auto topTools = new QButtonGroup(this);
         topTools->setExclusive(true);
@@ -107,6 +117,31 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
             filters->addButton(button);
         }
         ui->filterButtonAll->setChecked(true);
+    }
+    auto applyShadow = [&](QWidget *widget, const QColor &color, int blur, int offsetY) {
+        auto effect = new QGraphicsDropShadowEffect(widget);
+        effect->setBlurRadius(blur);
+        effect->setOffset(0, offsetY);
+        effect->setColor(color);
+        widget->setGraphicsEffect(effect);
+    };
+    auto refreshAccentShadows = [=]() {
+        const auto buttonBlue = QColor(0, 117, 222, 70);
+        const auto buttonGray = QColor(0, 0, 0, 18);
+        for (auto button: {ui->toolButton_program, ui->toolButton_preferences, ui->toolButton_server,
+                           ui->toolButton_ads, ui->toolButton_document, ui->toolButton_update,
+                           ui->filterButtonAll, ui->filterButtonFast, ui->filterButtonRecent}) {
+            applyShadow(button, button->isChecked() ? buttonBlue : buttonGray, button->isChecked() ? 22 : 14, button->isChecked() ? 5 : 3);
+        }
+        for (auto button: {ui->checkBox_VPN, ui->checkBox_SystemProxy}) {
+            applyShadow(button, button->isChecked() ? buttonBlue : buttonGray, button->isChecked() ? 22 : 14, button->isChecked() ? 5 : 3);
+        }
+        applyShadow(ui->toolButton_url_test, buttonBlue, 24, 5);
+    };
+    for (auto frame: {ui->toolbarPanel, ui->workspaceCard, ui->statusCard, ui->workspaceHeaderPanel,
+                      ui->modePanel, ui->insightPanel, ui->insightCardCurrent, ui->insightCardInbound,
+                      ui->insightCardTraffic}) {
+        applyShadow(frame, QColor(0, 0, 0, 18), 28, 6);
     }
     //
     connect(ui->menu_start, &QAction::triggered, this, [=]() { neko_start(); });
@@ -148,8 +183,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->toolButton_ads, &QToolButton::clicked, this, [=] { QDesktopServices::openUrl(QUrl("https://neko-box.pages.dev/喵")); });
     connect(ui->toolButton_update, &QToolButton::clicked, this, [=] { runOnNewThread([=] { CheckUpdate(); }); });
     connect(ui->toolButton_url_test, &QToolButton::clicked, this, [=] { speedtest_current_group(1, true); });
-    connect(ui->toolButton_import, &QToolButton::clicked, ui->menu_add_from_clipboard, &QAction::trigger);
-    connect(ui->toolButton_routing, &QToolButton::clicked, ui->menu_routing_settings, &QAction::trigger);
+    for (auto button: {ui->toolButton_program, ui->toolButton_preferences, ui->toolButton_server,
+                       ui->toolButton_ads, ui->toolButton_document, ui->toolButton_update,
+                       ui->filterButtonAll, ui->filterButtonFast, ui->filterButtonRecent}) {
+        connect(button, &QToolButton::toggled, this, [=](bool) { refreshAccentShadows(); });
+    }
+    connect(ui->checkBox_VPN, &QCheckBox::toggled, this, [=](bool) { refreshAccentShadows(); });
+    connect(ui->checkBox_SystemProxy, &QCheckBox::toggled, this, [=](bool) { refreshAccentShadows(); });
+    refreshAccentShadows();
 
     // Setup log UI
     ui->splitter->restoreState(DecodeB64IfValid(NekoGui::dataStore->splitter_state));
