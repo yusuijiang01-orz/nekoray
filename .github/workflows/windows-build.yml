@@ -24,16 +24,19 @@ jobs:
       - name: Install Ninja
         uses: seanmiddleditch/gha-setup-ninja@v5
 
-      - name: Install Qt
+      - name: Install Qt 5.15.2
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.5.3'
+          version: '5.15.2'
           target: 'desktop'
           arch: 'win64_msvc2019_64'
           cache: true
 
       - name: Configure CMake
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+        shell: powershell
+        run: |
+          $qtPath = "$env:RUNNER_WORKSPACE\Qt\5.15.2\msvc2019_64"
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$qtPath"
 
       - name: Build
         run: cmake --build build --config Release --parallel
@@ -41,8 +44,9 @@ jobs:
       - name: Deploy Qt Runtime
         shell: powershell
         run: |
+          $qtBin = "$env:RUNNER_WORKSPACE\Qt\5.15.2\msvc2019_64\bin"
           cd build
-          windeployqt nekobox.exe
+          & "$qtBin\windeployqt.exe" nekobox.exe
 
       - name: Package
         shell: powershell
