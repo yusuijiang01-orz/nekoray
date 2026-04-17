@@ -64,6 +64,26 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // Setup misc UI
     themeManager->ApplyTheme(NekoGui::dataStore->theme);
     ui->setupUi(this);
+    ui->search->setPlaceholderText(tr("Search profiles"));
+    ui->search->setMinimumWidth(260);
+    ui->tabWidget->setDocumentMode(true);
+    ui->tabWidget->setTabPosition(QTabWidget::West);
+    ui->tabWidget->tabBar()->setExpanding(false);
+    ui->tabWidget->tabBar()->setUsesScrollButtons(true);
+    ui->down_tab->setDocumentMode(true);
+    ui->proxyListTable->setShowGrid(false);
+    ui->proxyListTable->setAlternatingRowColors(false);
+    ui->proxyListTable->setFocusPolicy(Qt::StrongFocus);
+    ui->tableWidget_conn->setShowGrid(false);
+    ui->tableWidget_conn->setFocusPolicy(Qt::StrongFocus);
+    ui->masterLogBrowser->setOpenExternalLinks(true);
+    ui->toolButton_url_test->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    ui->toolButton_program->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    ui->toolButton_preferences->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    ui->toolButton_server->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    ui->toolButton_ads->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    ui->toolButton_document->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    ui->toolButton_update->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     //
     connect(ui->menu_start, &QAction::triggered, this, [=]() { neko_start(); });
     connect(ui->menu_stop, &QAction::triggered, this, [=]() { neko_stop(); });
