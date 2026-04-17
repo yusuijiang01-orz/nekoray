@@ -67,27 +67,30 @@
            <property name="spacing">
             <number>4</number>
            </property>
-           <item>
-            <widget class="QLabel" name="windowEyebrow">
-             <property name="text">
-              <string>Nekoray</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="windowTitleLabel">
-             <property name="text">
-              <string>Mac-style network control center</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="windowSubtitleLabel">
-             <property name="text">
-              <string>Manage profiles, routing and live traffic from one calm, focused workspace.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
+            <item>
+             <widget class="QLabel" name="windowEyebrow">
+              <property name="text">
+               <string>Notion warmth, Mac discipline</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="windowTitleLabel">
+              <property name="text">
+               <string>把现有工具型界面，重构成更克制、更稳定、更像桌面产品的样子。</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="windowSubtitleLabel">
+              <property name="text">
+               <string>保留 Nekoray 原来的信息架构，不做浮夸的网页化改造。我们只重新组织顶部操作区、分组标签、主列表、日志区和底部状态栏，让它在 Qt5 能力范围内真正落地。</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -106,19 +109,39 @@
            </property>
           </spacer>
          </item>
-         <item>
-          <layout class="QHBoxLayout" name="heroActionsLayout">
-           <property name="spacing">
-            <number>10</number>
-           </property>
-           <item>
-            <widget class="QLineEdit" name="search">
-             <property name="minimumSize">
-              <size>
-               <width>220</width>
-               <height>0</height>
-              </size>
-             </property>
+          <item>
+           <layout class="QHBoxLayout" name="heroActionsLayout">
+            <property name="spacing">
+              <number>10</number>
+            </property>
+            <item>
+             <widget class="QToolButton" name="toolButton_import">
+              <property name="text">
+               <string>导入配置</string>
+              </property>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextOnly</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="toolButton_routing">
+              <property name="text">
+               <string>路由设置</string>
+              </property>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextOnly</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="search">
+              <property name="minimumSize">
+               <size>
+                <width>180</width>
+                <height>0</height>
+               </size>
+              </property>
              <property name="clearButtonEnabled">
               <bool>true</bool>
              </property>
@@ -146,11 +169,11 @@
          <property name="spacing">
           <number>10</number>
          </property>
-         <item>
-          <widget class="QToolButton" name="toolButton_program">
-           <property name="text">
-            <string>Program</string>
-           </property>
+            <item>
+             <widget class="QToolButton" name="toolButton_program">
+              <property name="text">
+               <string>程序</string>
+              </property>
            <property name="icon">
             <iconset theme="b-system-run">
              <normaloff>.</normaloff>.</iconset>
@@ -169,11 +192,11 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QToolButton" name="toolButton_preferences">
-           <property name="text">
-            <string>Preferences</string>
-           </property>
+            <item>
+             <widget class="QToolButton" name="toolButton_preferences">
+              <property name="text">
+               <string>首选项</string>
+              </property>
            <property name="icon">
             <iconset theme="b-preferences">
              <normaloff>.</normaloff>.</iconset>
@@ -192,11 +215,11 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QToolButton" name="toolButton_server">
-           <property name="text">
-            <string>Server</string>
-           </property>
+            <item>
+             <widget class="QToolButton" name="toolButton_server">
+              <property name="text">
+               <string>服务器</string>
+              </property>
            <property name="icon">
             <iconset theme="b-network-server">
              <normaloff>.</normaloff>.</iconset>
@@ -215,11 +238,11 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QToolButton" name="toolButton_ads">
-           <property name="text">
-            <string>Discover</string>
-           </property>
+            <item>
+             <widget class="QToolButton" name="toolButton_ads">
+              <property name="text">
+               <string>推广</string>
+              </property>
            <property name="icon">
             <iconset theme="b-internet-web-browser">
              <normaloff>.</normaloff>.</iconset>
@@ -238,11 +261,11 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QToolButton" name="toolButton_document">
-           <property name="text">
-            <string>Help</string>
-           </property>
+            <item>
+             <widget class="QToolButton" name="toolButton_document">
+              <property name="text">
+               <string>文档</string>
+              </property>
            <property name="icon">
             <iconset theme="b-dialog-question">
              <normaloff>.</normaloff>.</iconset>
@@ -261,11 +284,11 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QToolButton" name="toolButton_update">
-           <property name="text">
-            <string>Updates</string>
-           </property>
+            <item>
+             <widget class="QToolButton" name="toolButton_update">
+              <property name="text">
+               <string>更新</string>
+              </property>
            <property name="icon">
             <iconset theme="b-system-software-update">
              <normaloff>.</normaloff>.</iconset>
@@ -326,17 +349,17 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="text">
-               <string>Tun Mode</string>
-              </property>
+               <property name="text">
+                <string>Tun 模式</string>
+               </property>
              </widget>
             </item>
             <item>
              <widget class="QCheckBox" name="checkBox_SystemProxy">
-              <property name="text">
-               <string>System Proxy</string>
-              </property>
-             </widget>
+               <property name="text">
+                <string>系统代理</string>
+               </property>
+              </widget>
             </item>
            </layout>
           </widget>
@@ -372,16 +395,16 @@
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <widget class="QTabWidget" name="tabWidget">
+          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
            <number>0</number>
           </property>
           <property name="documentMode">
            <bool>true</bool>
           </property>
-          <property name="tabPosition">
-           <enum>QTabWidget::West</enum>
-          </property>
+           <property name="tabPosition">
+            <enum>QTabWidget::North</enum>
+           </property>
           <property name="movable">
            <bool>true</bool>
           </property>
@@ -479,8 +502,8 @@
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
-            <string>Log</string>
-           </attribute>
+             <string>日志</string>
+            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout">
             <property name="spacing">
              <number>0</number>
@@ -511,8 +534,8 @@
           </widget>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
-            <string>Connection</string>
-           </attribute>
+             <string>连接</string>
+            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <property name="spacing">
              <number>0</number>

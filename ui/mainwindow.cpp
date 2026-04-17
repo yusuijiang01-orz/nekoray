@@ -64,10 +64,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     // Setup misc UI
     ui->setupUi(this);
     themeManager->ApplyTheme(NekoGui::dataStore->theme);
-    ui->search->setPlaceholderText(tr("Search profiles"));
-    ui->search->setMinimumWidth(260);
+    ui->search->setPlaceholderText(tr("Search profiles / 搜索节点"));
+    ui->search->setMinimumWidth(180);
     ui->tabWidget->setDocumentMode(true);
-    ui->tabWidget->setTabPosition(QTabWidget::West);
+    ui->tabWidget->setTabPosition(QTabWidget::North);
     ui->tabWidget->tabBar()->setExpanding(false);
     ui->tabWidget->tabBar()->setUsesScrollButtons(true);
     ui->down_tab->setDocumentMode(true);
@@ -84,6 +84,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->toolButton_ads->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     ui->toolButton_document->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     ui->toolButton_update->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    ui->toolButton_import->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    ui->toolButton_routing->setToolButtonStyle(Qt::ToolButtonTextOnly);
     //
     connect(ui->menu_start, &QAction::triggered, this, [=]() { neko_start(); });
     connect(ui->menu_stop, &QAction::triggered, this, [=]() { neko_stop(); });
@@ -124,6 +126,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->toolButton_ads, &QToolButton::clicked, this, [=] { QDesktopServices::openUrl(QUrl("https://neko-box.pages.dev/喵")); });
     connect(ui->toolButton_update, &QToolButton::clicked, this, [=] { runOnNewThread([=] { CheckUpdate(); }); });
     connect(ui->toolButton_url_test, &QToolButton::clicked, this, [=] { speedtest_current_group(1, true); });
+    connect(ui->toolButton_import, &QToolButton::clicked, ui->menu_add_from_clipboard, &QAction::trigger);
+    connect(ui->toolButton_routing, &QToolButton::clicked, ui->menu_routing_settings, &QAction::trigger);
 
     // Setup log UI
     ui->splitter->restoreState(DecodeB64IfValid(NekoGui::dataStore->splitter_state));
