@@ -24,8 +24,8 @@ QFrame#insightCardTraffic,
 QDialog,
 QMessageBox {
     background: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
 }
 
 QLabel {
@@ -48,7 +48,7 @@ QLabel#insightCurrentTitle,
 QLabel#insightInboundTitle,
 QLabel#insightTrafficTitle {
     color: rgba(0, 0, 0, 0.95);
-    font-size: 16pt;
+    font-size: 12.5pt;
     font-weight: 700;
 }
 
@@ -90,10 +90,10 @@ QPushButton {
     background: #ffffff;
     color: rgba(0, 0, 0, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 18px;
-    padding: 12px 20px;
-    min-height: 24px;
-    font-size: 11pt;
+    border-radius: 14px;
+    padding: 10px 18px;
+    min-height: 20px;
+    font-size: 10.5pt;
     font-weight: 600;
 }
 
@@ -135,7 +135,7 @@ QToolButton::menu-indicator {
 QToolButton#filterButtonAll,
 QToolButton#filterButtonFast,
 QToolButton#filterButtonRecent {
-    padding: 10px 18px;
+    padding: 8px 16px;
     border-radius: 999px;
     background: #ffffff;
     color: #615d59;
@@ -152,7 +152,7 @@ QPushButton[default="true"] {
     background: #0075de;
     color: #ffffff;
     border: 1px solid rgba(0, 117, 222, 0.18);
-    padding: 12px 22px;
+    padding: 10px 20px;
     font-weight: 700;
 }
 
@@ -168,9 +168,9 @@ QCheckBox {
     border-radius: 999px;
     color: rgba(0, 0, 0, 0.95);
     spacing: 0px;
-    font-size: 11pt;
+    font-size: 10.5pt;
     font-weight: 600;
-    padding: 12px 20px;
+    padding: 10px 18px;
 }
 
 QCheckBox::indicator {
@@ -189,7 +189,7 @@ QCheckBox:checked {
 QTabWidget::pane {
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 20px;
+    border-radius: 16px;
     top: -1px;
 }
 
@@ -202,10 +202,10 @@ QTabBar::tab {
     background: transparent;
     color: #615d59;
     border: 1px solid transparent;
-    border-radius: 18px;
-    padding: 12px 20px;
+    border-radius: 14px;
+    padding: 10px 18px;
     margin: 4px;
-    font-size: 11pt;
+    font-size: 10.5pt;
     font-weight: 600;
 }
 
@@ -221,9 +221,9 @@ QTabBar::tab:hover:!selected {
 }
 
 QTabWidget#tabWidget QTabBar::tab {
-    min-width: 110px;
-    padding: 14px 24px;
-    margin: 6px 6px 12px 0;
+    min-width: 96px;
+    padding: 12px 20px;
+    margin: 6px 6px 10px 0;
 }
 
 QTabWidget#down_tab QTabBar::tab {
@@ -241,8 +241,8 @@ QHeaderView::section {
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     border-right: 1px solid rgba(0, 0, 0, 0.04);
-    padding: 10px 12px;
-    font-size: 8.5pt;
+    padding: 8px 12px;
+    font-size: 8.2pt;
     font-weight: 700;
 }
 
@@ -267,7 +267,7 @@ QFrame#insightCardInbound,
 QFrame#insightCardTraffic {
     background: #fbfaf8;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 18px;
+    border-radius: 14px;
 }
 
 QFrame#insightPanel {
@@ -347,14 +347,14 @@ QLabel#label_speed {
     background: #ffffff;
     color: rgba(0, 0, 0, 0.95);
     border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: 18px;
-    padding: 14px 18px;
-    font-size: 11pt;
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-size: 9.8pt;
     font-weight: 600;
 }
 
 QTextBrowser#masterLogBrowser {
-    min-height: 260px;
+    min-height: 180px;
 }
 
 QSplitter::handle:vertical {
