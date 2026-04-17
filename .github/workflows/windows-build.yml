@@ -31,6 +31,11 @@ jobs:
           target: 'desktop'
           arch: 'win64_msvc2019_64'
           cache: true
+          
+      - name: Build C++ dependencies
+        shell: bash
+        run: |
+          bash ./libs/build_deps_all.sh
 
       - name: Configure CMake
         shell: powershell
