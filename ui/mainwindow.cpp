@@ -62,8 +62,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     NekoGui::profileManager->LoadManager();
 
     // Setup misc UI
-    themeManager->ApplyTheme(NekoGui::dataStore->theme);
     ui->setupUi(this);
+    themeManager->ApplyTheme(NekoGui::dataStore->theme);
     ui->search->setPlaceholderText(tr("Search profiles"));
     ui->search->setMinimumWidth(260);
     ui->tabWidget->setDocumentMode(true);

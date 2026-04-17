@@ -13,7 +13,7 @@ void ThemeManager::ApplyTheme(const QString &theme) {
         if (this->system_style_name.isEmpty()) {
             this->system_style_name = qApp->style()->objectName();
         }
-        if (this->current_theme == theme) {
+        if (this->current_theme == theme && !qApp->styleSheet().isEmpty()) {
             return;
         }
 
@@ -52,9 +52,14 @@ void ThemeManager::ApplyTheme(const QString &theme) {
             auto system_style = QStyleFactory::create(this->system_style_name);
 
             if (themeId == 0) {
-                // system theme
+                // use Fusion so the custom QSS can fully take over on Windows/Linux
+                auto fusion_style = QStyleFactory::create("Fusion");
+                if (fusion_style != nullptr) {
+                    qApp->setStyle(fusion_style);
+                } else {
+                    qApp->setStyle(system_style);
+                }
                 qApp->setPalette(system_style->standardPalette());
-                qApp->setStyle(system_style);
                 qApp->setStyleSheet("");
             } else {
                 if (themeId == 1 || themeId == 2 || themeId == 3) {
@@ -64,6 +69,10 @@ void ThemeManager::ApplyTheme(const QString &theme) {
                 } else {
                     // other theme
                     qApp->setPalette(system_style->standardPalette());
+                }
+                auto fusion_style = QStyleFactory::create("Fusion");
+                if (fusion_style != nullptr) {
+                    qApp->setStyle(fusion_style);
                 }
                 qApp->setStyleSheet(qss);
             }
@@ -82,5 +91,5 @@ void ThemeManager::ApplyTheme(const QString &theme) {
     internal();
 
     auto nekoray_css = ReadFileText(":/neko/neko.css");
-    qApp->setStyleSheet(qApp->styleSheet().append("\n").append(nekoray_css));
+    qApp->setStyleSheet(qApp->styleSheet() + "\n" + nekoray_css);
 }
